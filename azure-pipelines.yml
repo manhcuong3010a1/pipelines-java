@@ -39,7 +39,7 @@ variables:
 steps:
 
 - script: |
-    apt install -y curl
+    sudo apt install -y curl
     curl nginx
     apt install redis-tools
     redis-cli -h redis ping
