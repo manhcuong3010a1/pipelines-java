@@ -2,46 +2,17 @@
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
-# strategy:
-#   matrix:
-#     linux:
-#       imageName: 'ubuntu-16.04'
-#     mac:
-#       imageName: 'macos-10.14'
-#     windows:
-#       imageName: 'vs2017-win2016'
+
 trigger:
 - master
 - develop
 pr:
 - master
-resources:
- containers:
-   - container: my_container
-     image: ubuntu:16.04
-   - container: nginx
-     image: nginx
-   - container: redis
-     image: redis
-     
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'ubuntu-16.04' # other options: 'macOS-10.14', 'vs2017-win2016'
 
-container: my_container
-
-services:
-  nginx: nginx
-  redis: redis
-  
 steps:
-
-# - script: |
-#     apt install -y curl
-#     curl nginx
-#     apt install redis-tools
-#     redis-cli -h redis ping
 - task: Maven@3
-  displayName: Build an image
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
@@ -51,21 +22,5 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: '**/TEST-RESULTS.xml'
-    testRunTitle: 'Test results for JavaScript'
-
-- task: PublishCodeCoverageResults@1
-  inputs: 
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: false
-
 - task: PublishBuildArtifacts@1
-
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
