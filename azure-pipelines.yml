@@ -2,27 +2,42 @@
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-16.04'
-    mac:
-      imageName: 'macos-10.14'
-    windows:
-      imageName: 'vs2017-win2016'
+# strategy:
+#   matrix:
+#     linux:
+#       imageName: 'ubuntu-16.04'
+#     mac:
+#       imageName: 'macos-10.14'
+#     windows:
+#       imageName: 'vs2017-win2016'
 trigger:
 - master
 - develop
 pr:
 - master
-
+resources:
+ containers:
+   - container: my_container
+     image: ubuntu:16.04
 pool:
-  vmImage: $(imageName)
+  vmImage: 'ubuntu-16.04'
+
+container: my_container
+
+services:
+  nginx: nginx
+  redis: redis
 
 variables:
   imageName: 'pipelines-javascript-docker'
   
 steps:
+
+- script: |
+    apt install -y curl
+    curl nginx
+    apt install redis-tools
+    redis-cli -h redis ping
 - task: Maven@3
   displayName: Build an image
   inputs:
