@@ -19,6 +19,11 @@ resources:
  containers:
    - container: my_container
      image: ubuntu:16.04
+   - container: nginx
+     image: nginx
+   - container: redis
+     image: redis
+     
 pool:
   vmImage: 'ubuntu-16.04'
 
