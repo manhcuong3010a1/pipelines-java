@@ -6,7 +6,8 @@
 trigger:
 - master
 - develop
-
+pr:
+- master
 pool:
   vmImage: 'ubuntu-16.04' # other options: 'macOS-10.14', 'vs2017-win2016'
 
