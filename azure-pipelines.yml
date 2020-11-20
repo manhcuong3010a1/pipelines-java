@@ -15,6 +15,20 @@ trigger:
 - develop
 pr:
 - master
+stages:
+  - stage: deploy
+  jobs:
+  - deployment: DeployWeb
+    displayName: deploy Web App
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'smarthotel-dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello world
 pool:
   vmImage: $(imageName)
 
@@ -46,3 +60,4 @@ steps:
     includeRootFolder: false
 
 - task: PublishBuildArtifacts@1
+
