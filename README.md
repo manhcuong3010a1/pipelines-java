@@ -1,4 +1,5 @@
 
+[![Build Status](https://dev.azure.com/manhcuong3010a1/HelloWorld/_apis/build/status/manhcuong3010a1.pipelines-java?branchName=master)](https://dev.azure.com/manhcuong3010a1/HelloWorld/_build/latest?definitionId=1&branchName=master)
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
