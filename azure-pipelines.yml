@@ -32,9 +32,6 @@ container: my_container
 services:
   nginx: nginx
   redis: redis
-
-variables:
-  imageName: 'pipelines-javascript-docker'
   
 steps:
 
