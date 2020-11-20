@@ -38,11 +38,11 @@ variables:
   
 steps:
 
-- script: |
-    apt install -y curl
-    curl nginx
-    apt install redis-tools
-    redis-cli -h redis ping
+# - script: |
+#     apt install -y curl
+#     curl nginx
+#     apt install redis-tools
+#     redis-cli -h redis ping
 - task: Maven@3
   displayName: Build an image
   inputs:
