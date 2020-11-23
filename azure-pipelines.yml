@@ -1,5 +1,13 @@
 
 name: mcgPipeline
+# Database settings parameters:
+# variables:
+#   AzureSubscription: '<Azure service connection>'
+#   ServerName: '<Database server name>'
+#   DatabaseName: '<Database name>'
+#   AdminUser: '<SQL user name>'
+#   AdminPassword: '<SQL user password>'
+#   SQLFile: '<Location of SQL file in $(Build.SourcesDirectory)>'
 trigger:
   batch: true
   branches:
@@ -52,6 +60,13 @@ stages:
           clean: outputs
         steps:
           - script: echo Job 1
+          # RUN sql scripts
+          # - task: CmdLine@1
+          #   displayName: Run Sqlcmd
+          #   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          #   inputs: 
+          #     filename: Sqlcmd
+          #     arguments: '-S $(ServerName) -U $(AdminUser) -P $(AdminPassword) -d $(DatabaseName) -i $(SQLFile)'
       - job: job_2
         # reference resources
         container: linux 
