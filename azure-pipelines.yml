@@ -11,7 +11,18 @@ pr:
 pool:
   vmImage: 'ubuntu-16.04' # other options: 'macOS-10.14', 'vs2017-win2016'
 
+variables:
+ - name: mcgTest
+   value: true
+
+parameters:
+  - name: mcgParameter
+    default: false
+    type: boolean
+
 steps:
+- script: echo MCG Hello world!
+  condition: and(succeeded(), eq('${{ parameters.mcgParameter }}', false))
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -24,3 +35,6 @@ steps:
     goals: 'package'
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+- task: PowerShell@2
+  condition: and(succeeded(), eq('${{ parameters.mcgParameter }}', false))
