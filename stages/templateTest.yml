@@ -10,8 +10,8 @@ stages:
           vmImage: vs2017-win2016
         steps:
           - script: echo This is a template job in Window
-      - job: ${{ parameters.name }}_Mac
-        pool:
-          vmImage: macos-10.14
-        steps:
-          - script: echo This is a template job in Mac
+#      - job: ${{ parameters.name }}_Mac
+#        pool:
+#          vmImage: macos-10.14
+#        steps:
+#          - script: echo This is a template job in Mac
