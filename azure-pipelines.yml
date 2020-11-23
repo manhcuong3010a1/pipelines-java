@@ -4,7 +4,7 @@ name: mcgPipeline
 stages:
   - stage: Stage_1
     displayName: Initialize
-    condition: alsway()
+    condition: and(always(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - job: job_1
         steps:
