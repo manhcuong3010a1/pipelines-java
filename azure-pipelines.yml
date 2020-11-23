@@ -9,6 +9,9 @@ stages:
       - job: job_1
         steps:
           - script: echo Job 1
+      - job: job_2
+        steps:
+          - script: echo Job 2
   - stage: Stage_2
     displayName: After configuration
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
