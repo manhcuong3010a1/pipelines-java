@@ -35,6 +35,3 @@ steps:
     goals: 'package'
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-- task: PowerShell@2
-  condition: and(succeeded(), eq('${{ parameters.mcgParameter }}', false))
