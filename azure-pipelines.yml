@@ -1,26 +1,42 @@
 
 name: mcgPipeline
-
+resources:
+ containers:
+   - container: linux
+     image: ubuntu:16.04
 stages:
   - stage: Stage_1
     displayName: Initialize
     condition: and(always(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - job: job_1
+        displayName: Initialize job 1
+        cancelTimeoutInMinutes: 10
+        continueOnError: true
+        dependsOn: []
+        workspace:
+          clean: outputs
         steps:
           - script: echo Job 1
       - job: job_2
+        # reference resources
+        container: linux 
         steps:
           - script: echo Job 2
   - stage: Stage_2
     displayName: After configuration
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
   - stage: Deploy
     jobs:
     - deployment: DeployWeb
       displayName: deploy Web App
       pool:
         vmImage: 'Ubuntu-latest'
+      workspace:
+        clean: all
+      timeoutInMinutes: 2
+      cancelTimeoutInMinutes: 2
       # creates an environment if it doesn't exist
       environment: 'Develop'
       strategy:
