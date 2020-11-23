@@ -1,9 +1,43 @@
 
 name: mcgPipeline
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+      - develop
+      - features/test_trigger
+    exclude:
+      - features/TODO
+  paths:
+    exclude:
+      - README.md
+pr:
+  branches:
+    include:
+      - master
+      - develop
+# schedules:
+#   - cron: "0 0 * * *"
+#     displayName: Daily midnight build
+#     branches:
+#       include:
+#         - master
+#         - releases/*
+#       exclude:
+#         - develop
+#   - cron: "0 12 * * 0"
+#     displayName: Weekly Sunday build
+#     branches:
+#       include:
+#         - master
+#     always: true
 resources:
  containers:
    - container: linux
      image: ubuntu:16.04
+     
+
 stages:
   - stage: Stage_1
     displayName: Initialize
