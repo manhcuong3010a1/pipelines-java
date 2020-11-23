@@ -30,7 +30,7 @@ stages:
     displayName: Use template stage
     dependsOn: Stage_2
     condition: and(alsway(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    template: stages/templateTest.yml
+  - template: stages/templateTest.yml
     parameters:
       name: Mini
   - stage: Deploy
