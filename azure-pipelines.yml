@@ -29,7 +29,7 @@ stages:
   - stage: Stage_3
     displayName: Use template stage
     dependsOn: Stage_2
-    condition: and(alsway(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(always(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   - template: stages/templateTest.yml
     parameters:
       name: Mini
